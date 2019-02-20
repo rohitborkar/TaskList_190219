@@ -1,25 +1,28 @@
 <?php
 require_once "Validate.php";
 
-class CommandLineCalculator 
+class CommandLineCalculator
 {
     public function add($argv)
     {
         $result1 = "";
         $result2 = "";
-        $totalNumbersAddition = "";
+        $totalNumbersAddition = 0;
+
         unset($argv[0]);
         unset($argv[1]);
+        $number1= $argv[2];
         foreach($argv as $number) {
-                if(is_numeric($number)) {
-                        $result1 += $number; 
+            if(is_numeric($number)) {
+                $result1 += $number;
+            }
+            else {
+                $numbersArray = explode(" ",preg_replace("/[^0-9]/", " ", $number));
+
+                foreach($numbersArray as $numbers) {
+                    $result2 += $numbers;
                 }
-                else {	
-                        $numbersArray = explode(" ",preg_replace("/[^0-9]/", " ", $number));
-                        foreach($numbersArray as $numbers) {
-                                $result2 += $numbers;
-                        }
-                }
+            }
         }
         $totalNumbersAddition = $result1 + $result2;
         echo "\nOUTPUT: ".$totalNumbersAddition."\n";
@@ -34,7 +37,7 @@ try {
 
     $calculatorObj->add($argv);
 }
-catch (Exception $e){
+catch (Exception $e) {
     echo "ERROR: ".$e->getMessage();
 }
 ?>
