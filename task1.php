@@ -2,8 +2,18 @@
     class CommandLineCalculator
     {
     	public function sum($number1, $number2) {
-            $result = $number1 + $number2;
-            echo $result."\n";
+            if(strpos($number1, ","))
+            { 
+                $numbersArray = explode(" ",preg_replace("/[^0-9]/", " ", $number1));
+                foreach($numbersArray as $numbers)
+                {
+                    $result += $numbers;                           
+		}
+            }else
+            {
+                $result = $number1 + $number2;
+            }
+            echo "OUTPUT: ".$result."\n";
     	}
         
         public function validateMethod($method)
