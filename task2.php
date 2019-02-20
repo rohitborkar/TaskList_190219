@@ -1,4 +1,5 @@
 <?php
+    require_once "Validate.php";
     class CommandLineCalculator
     {
 	public function add($argv) {
@@ -18,18 +19,14 @@
             }
 		echo "\nOUTPUT: ".$result."\n";
 	}
-        public function validateMethod($method)
-        {
-            if ($method != "add") {
-                throw new exception("Please enter valid method.");
-            }
-         return true;    
-        } 
     }
     try {
         $calculatorObj = new CommandLineCalculator;
         $operation = stripslashes($argv[1]);
-    	$calculatorObj->validateMethod($operation);
+        
+        $validateObj = new Validate;
+    	$validateObj->validateMethod($operation);
+ 
         $calculatorObj->add($argv);
     }
     catch (Exception $e){
